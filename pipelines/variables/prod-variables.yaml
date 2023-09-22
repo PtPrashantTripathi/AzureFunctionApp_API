@@ -1,0 +1,21 @@
+###############################################################################
+#                                   PROD VARIABLES                            #
+# Only include non Secure variables, for secure variables add it in Pipeline
+# with 'secrets' enabled
+###############################################################################
+
+variables:
+
+    azureSubscription: 'Azure DevOps - Enterprise Data Production'
+    KeyVaultName: 'kv-ea2-apex-apis'
+
+    Location01: 'East US 2'
+    Location02: 'Central US'
+
+    appName01: 'fa-ea2-apex-apis-pos'
+    appName02: 'fa-cn-apex-apis-pos'
+#AppSetting Variables   
+    CosmosURL: $(CosmosDB-URL)
+    CosmosWriteKey: $(CosmosDB-PrimaryWriteKey)
+    CosmosReadKey: $(CosmosDB-PrimaryReadKey)
+

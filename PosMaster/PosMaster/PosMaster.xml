@@ -1,0 +1,1101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PosMaster</name>
+    </assembly>
+    <members>
+        <member name="T:PosMaster.Data.Adapter.CosmosDbService`1">
+            <summary>
+            CosmosDbService class
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:PosMaster.Data.Adapter.CosmosDbService`1.#ctor(Microsoft.Azure.Cosmos.CosmosClient,Microsoft.AspNetCore.Http.IHttpContextAccessor,PosMaster.Data.ILoggerAdapter)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="client"></param>
+            <param name="contextAccessor"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PosMaster.Data.Adapter.CosmosDbService`1.GetDataWithoutPartitionKey(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Connect and fetches data from cosmos with partition key
+            </summary>
+            /// <param name="Collection"></param>
+            <param name="Query"></param>
+            <param name="Token"></param>
+            <param name="Pagination"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.Adapter.LoggerAdapter">
+            <summary>
+            Telemetry logging for all activities
+            </summary>
+        </member>
+        <member name="P:PosMaster.Data.Adapter.LoggerAdapter._appInsights">
+            <summary>
+            Telemetry client
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.Adapter.LoggerAdapter.#ctor(Microsoft.ApplicationInsights.TelemetryClient)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="telemetryClient"></param>
+        </member>
+        <member name="M:PosMaster.Data.Adapter.LoggerAdapter.LogError(System.Exception,System.String)">
+            <summary>
+            Logs error
+            </summary>
+            <param name="exception"></param>
+            <param name="body"></param>
+        </member>
+        <member name="M:PosMaster.Data.Adapter.LoggerAdapter.LogError(System.Exception)">
+            <summary>
+            Log error without body
+            </summary>
+            <param name="exception"></param>
+        </member>
+        <member name="M:PosMaster.Data.Adapter.LoggerAdapter.LogError(System.Exception,System.String,System.String)">
+            <summary>
+            Log error with exception body and apiUrl
+            </summary>
+            <param name="exception"></param>
+            <param name="body"></param>
+            <param name="apiUrl"></param>
+        </member>
+        <member name="M:PosMaster.Data.Adapter.LoggerAdapter.LogInformation(System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="informationMessage"></param>
+        </member>
+        <member name="M:PosMaster.Data.Adapter.LoggerAdapter.LogInformation(System.String,System.String)">
+            <summary>
+            Log Information with body
+            </summary>
+            <param name="informationMessage"></param>
+            <param name="body"></param>
+        </member>
+        <member name="M:PosMaster.Data.Adapter.LoggerAdapter.LogEvent(System.String,System.String)">
+            <summary>
+            Log event with a body / parameters
+            </summary>
+            <param name="informationMessage"></param>
+            <param name="body"></param>
+        </member>
+        <member name="M:PosMaster.Data.Adapter.LoggerAdapter.LogEvent(System.String)">
+            <summary>
+            Log event without body
+            </summary>
+            <param name="informationMessage"></param>
+        </member>
+        <member name="T:PosMaster.Data.DigitalAvailableStoreItemAdapter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.DigitalAvailableStoreItemAdapter.#ctor(PosMaster.Data.ILoggerAdapter,PosMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            constructor
+            </summary>
+            <param name="logger"></param>
+            <param name="cosmosDbService"></param>
+        </member>
+        <member name="M:PosMaster.Data.DigitalAvailableStoreItemAdapter.GetDigitalAvailableStoreItem(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Pos details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.Data.DigitalAvailableStoreItemAdapter.CreateQuery(PosMaster.Data.FilterCriteria)">
+            <summary>
+            Creates query for cosmos
+            </summary>
+            <param name="filterCriteria"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.DigitalCouponAdapter">
+            <summary>
+            DigitalCouponAdapter class
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.DigitalCouponAdapter.#ctor(PosMaster.Data.ILoggerAdapter,PosMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PosMaster.Data.DigitalCouponAdapter.GetCouponDetails(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches DigitalCoupon details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.Data.DigitalCouponItemAdapter.#ctor(PosMaster.Data.ILoggerAdapter,PosMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            DigitalCouponItem constructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PosMaster.Data.DigitalCouponItemAdapter.GetDigitalCouponItem(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Purchase and Offer sku details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.HealthCheckAdapter">
+            <summary>
+            HealthCheckAdapter class
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.HealthCheckAdapter.#ctor(PosMaster.Data.ILoggerAdapter,Microsoft.Azure.Cosmos.CosmosClient)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="logger"></param>
+            <param name="cosmosClient"></param>
+        </member>
+        <member name="M:PosMaster.Data.HealthCheckAdapter.CheckHealthAsync(Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckContext,System.Threading.CancellationToken)">
+            <summary>
+            This Function fetches Cosmos connectivity health diagnostics details
+            </summary>
+            <returns>HealthCheckResult</returns>
+        </member>
+        <member name="T:PosMaster.Data.ItemAdapter">
+            <summary>
+            ItemDetailsAdapter class
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.ItemAdapter.#ctor(PosMaster.Data.ILoggerAdapter,PosMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PosMaster.Data.ItemAdapter.GetDetails(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Pos details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.OSAAlertsAdapter">
+            <summary>
+            OSAAlertsAdapter class
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.OSAAlertsAdapter.#ctor(PosMaster.Data.ILoggerAdapter,PosMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            OSAAlertsAdapter Constructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PosMaster.Data.OSAAlertsAdapter.GetDetails(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches OSAAlerts details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.Data.OSAAlertsAdapter.CreateQuery(PosMaster.Data.FilterCriteria,System.Collections.Generic.List{System.Object})">
+            <summary>
+            Creates query for cosmos
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="maxtimestamp"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.PosAdapter">
+            <summary>
+            PosAdapter class
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.PosAdapter.#ctor(PosMaster.Data.ILoggerAdapter,PosMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            PosAdapter constructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PosMaster.Data.PosAdapter.GetPos(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Pos details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.Data.PosAdapter.CreateQuery(PosMaster.Data.FilterCriteria,System.Collections.Generic.List{System.Object})">
+            <summary>
+            Creates query for cosmos
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="ItemResult"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.PosGroupAdapter">
+            <summary>
+            Fetches PosGroup details
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.PosGroupAdapter.#ctor(PosMaster.Data.ILoggerAdapter,PosMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            Construtor
+            </summary>
+            <param name="logger"></param>
+            <param name="cosmosDbService"></param>
+        </member>
+        <member name="M:PosMaster.Data.PosGroupAdapter.GetPosGroupId(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches PosGroupId details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.Data.PosGroupAdapter.CreateQuery(PosMaster.Data.FilterCriteria)">
+            <summary>
+            Creates query for cosmos
+            </summary>
+            <param name="filterCriteria"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.PosPackagingAdapter">
+            <summary>
+            PosPackagingAdapter class
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.PosPackagingAdapter.#ctor(PosMaster.Data.ILoggerAdapter,PosMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            PosPackagingAdapter constructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PosMaster.Data.PosPackagingAdapter.GetPosPackaging(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches PosPackaging details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.Data.PosPackagingAdapter.CreateQuery(PosMaster.Data.FilterCriteria)">
+            <summary>
+            Creates query for cosmos[New Optimized query fixes on duplicate records]
+            </summary>
+            <param name="filterCriteria"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.PosTaxonomyAdapter">
+            <summary>
+            PosTaxonomyAdapter class
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.PosTaxonomyAdapter.#ctor(PosMaster.Data.ILoggerAdapter,PosMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            PosTaxonomyAdapter constructor
+            </summary>
+            <param name="logger"></param>
+            <param name="cosmosDbService"></param>
+        </member>
+        <member name="M:PosMaster.Data.PosTaxonomyAdapter.GetPosTaxonomy(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Upc PosTaxamony details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.Data.PosTaxonomyAdapter.CreateQuery(PosMaster.Data.FilterCriteria)">
+            <summary>
+            Creates query for cosmos
+            </summary>
+            <param name="filterCriteria"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.StoreItemAdapter">
+            <summary>
+            StoreItem Adapter class
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.StoreItemAdapter.#ctor(PosMaster.Data.ILoggerAdapter,PosMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            Consytructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PosMaster.Data.StoreItemAdapter.GetStoreItemDetails(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches storeitem details from CosmosDB
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.Data.StoreItemAdapter.CreateQuery(PosMaster.Data.FilterCriteria)">
+            <summary>
+            Creating dynamic query 
+            </summary>
+            <param name="filterCriteria"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.Constant">
+            <summary>
+            Holds all the information that are constant
+            </summary>
+        </member>
+        <member name="F:PosMaster.Data.Constant.COSMOS_DB">
+            <summary>
+            Cosmos Database name
+            </summary>
+        </member>
+        <member name="F:PosMaster.Data.Constant.COSMOS_POS_COLLECTION">
+            <summary>
+            Pos collection
+            </summary>
+        </member>
+        <member name="F:PosMaster.Data.Constant.COSMOS_ITEM_COLLECTION">
+            <summary>
+            Sku collection
+            </summary>
+        </member>
+        <member name="F:PosMaster.Data.Constant.COSMOS_POSGROUP_COLLECTION">
+            <summary>
+            PosGroup collection
+            </summary>
+        </member>
+        <member name="F:PosMaster.Data.Constant.COSMOS_RELATEDPOSGROUP_COLLECTION">
+            <summary>
+            RelatedPosGroup collection
+            </summary>
+        </member>
+        <member name="F:PosMaster.Data.Constant.COSMOS_DIGITALCOUPON_COLLECTION">
+            <summary>
+            Digital coupon collection
+            </summary>
+        </member>
+        <member name="F:PosMaster.Data.Constant.COSMOS_POSTAXONOMY_COLLECTION">
+            <summary>
+            Pos Taxonomy collection
+            </summary>
+        </member>
+        <member name="F:PosMaster.Data.Constant.COSMOS_STOREITEM_COLLECTION">
+            <summary>
+            StorItem collection
+            </summary>
+        </member>
+        <member name="F:PosMaster.Data.Constant.COSMOS_POSPACKAGING_COLLECTION">
+            <summary>
+            Pos Packaging collection
+            </summary>
+        </member>
+        <member name="F:PosMaster.Data.Constant.COSMOS_PSAALERTS_COLLECTION">
+            <summary>
+            OSAALERTS collection
+            </summary>
+        </member>
+        <member name="T:PosMaster.Data.ICosmosDbService`1">
+            <summary>
+            CosmosDbService Interface
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:PosMaster.Data.ICosmosDbService`1.GetDataWithoutPartitionKey(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Connect and fetches data from cosmos with partition key
+            </summary>
+            <param name="Collection"></param>
+            <param name="Query"></param>
+            <param name="Token"></param>
+            <param name="Pagination"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.IDigitalAvailableStoreItemAdapter">
+            <summary>
+            DigitalAvailableStoreItemAdapter Interface
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.IDigitalAvailableStoreItemAdapter.GetDigitalAvailableStoreItem(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches DigitalAvailableStoreItem Details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.IDigitalCouponAdapter">
+            <summary>
+            Interface for all operation related to DigitalCoupon details
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.IDigitalCouponAdapter.GetCouponDetails(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches DigitalCoupon details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.IDigitalCouponItemAdapter">
+            <summary>
+            DigitalCouponItemAdapter interface
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.IDigitalCouponItemAdapter.GetDigitalCouponItem(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            GetDigitalCouponItem Interface
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.IItemAdapter">
+            <summary>
+            Interface for all operation related to Sku details
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.IItemAdapter.GetDetails(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Sku details
+            </summary>
+            <param name="filterCriteria"></param>
+            /// <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.ILoggerAdapter">
+            <summary>
+            Logger adapter interface
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.ILoggerAdapter.LogInformation(System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="informationMessage"></param>
+        </member>
+        <member name="M:PosMaster.Data.ILoggerAdapter.LogInformation(System.String,System.String)">
+            <summary>
+            Log Information with body
+            </summary>
+            <param name="informationMessage"></param>
+            <param name="body"></param>
+        </member>
+        <member name="M:PosMaster.Data.ILoggerAdapter.LogEvent(System.String)">
+            <summary>
+            Log event without body
+            </summary>
+            <param name="informationMessage"></param>
+        </member>
+        <member name="M:PosMaster.Data.ILoggerAdapter.LogEvent(System.String,System.String)">
+            <summary>
+            Log event with a body / parameters
+            </summary>
+            <param name="informationMessage"></param>
+            <param name="body"></param>
+        </member>
+        <member name="M:PosMaster.Data.ILoggerAdapter.LogError(System.Exception)">
+            <summary>
+            Log error without body
+            </summary>
+            <param name="exception"></param>
+        </member>
+        <member name="M:PosMaster.Data.ILoggerAdapter.LogError(System.Exception,System.String)">
+            <summary>
+            Log Error with a body / parameters
+            </summary>
+            <param name="exception"></param>
+            <param name="body"></param>
+        </member>
+        <member name="M:PosMaster.Data.ILoggerAdapter.LogError(System.Exception,System.String,System.String)">
+            <summary>
+            Log error with exception body and apiUrl
+            </summary>
+            <param name="exception"></param>
+            <param name="body"></param>
+            <param name="apiUrl"></param>
+        </member>
+        <member name="T:PosMaster.Data.IOSAAlertsAdapter">
+            <summary>
+            Interface for all operation related to PSA alerts details
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.IOSAAlertsAdapter.GetDetails(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches OSAAlerts Details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.IPosAdapter">
+            <summary>
+            PosAdapter Interface
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.IPosAdapter.GetPos(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Pos Details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.IPosGroupAdapter">
+            <summary>
+            PosGroupAdapter interface
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.IPosGroupAdapter.GetPosGroupId(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+             Fetches PosGroup details and GetPrimaryKeyandPosHierarchy
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.IPosPackagingAdapter">
+            <summary>
+            PosPackaging Interface
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.IPosPackagingAdapter.GetPosPackaging(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches PosPackaging Details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.IPosTaxonomyAdapter">
+            <summary>
+            IPosTaxonomy Interface
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.IPosTaxonomyAdapter.GetPosTaxonomy(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches PosTaxonomy Details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.IStoreItemAdapter">
+            <summary>
+            StoreItemAdapter Interface
+            </summary>
+        </member>
+        <member name="M:PosMaster.Data.IStoreItemAdapter.GetStoreItemDetails(PosMaster.Data.FilterCriteria,System.String)">
+            <summary>
+             Fetches StoreItem Details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Data.FilterCriteria">
+            <summary>
+            FilterCriteria class
+            </summary>
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.RowUpdatedStartDate">
+            <summary>
+            RowUpdatedStartDate
+            </summary>
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.RowUpdatedEndDate">
+            <summary>
+            RowUpdatedEndDate
+            </summary>
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.BrandCategoryId">
+            <summary>
+            BrandCategoryId
+            </summary>
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.PosStatusTypeName">
+            <summary>
+            PosStatusTypeName
+            </summary>
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.mPosTaxonomyID">
+            <summary>
+            mPosTaxonomyID
+            </summary>
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.VendorId">
+            <summary>
+            VendorId
+            </summary>
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.LegacyPrimaryKeyId">
+            <summary>
+            LegacyPrimaryKeyId
+            </summary>
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.PosId">
+            <summary>
+            PosId
+            </summary>
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.Sku">
+            <summary>
+            Sku
+            </summary>
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.mPosId">
+            <summary>
+            mPosId
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.UPCTypeName">
+            <summary> 
+            UPCTypeName
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.StoreId">
+            <summary> 
+            StoreId
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.CouponSourceId">
+            <summary> 
+            CouponSourceId
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.mCouponId">
+            <summary> 
+            mCouponId
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.mRelatedPosGroupId">
+            <summary> 
+            mRelatedPosGroupId
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.mPosGroupId">
+            <summary> 
+            mPosGroupId
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.Purpose">
+            <summary> 
+            Purpose
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.CasePackId">
+            <summary> 
+            CasePackId
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.InnerPackId">
+            <summary> 
+            InnerPackId
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.mVendorID">
+            <summary> 
+            mVendorID
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.ItemCodeId">
+            <summary> 
+            ItemCodeId
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.Pagination">
+            <summary> 
+            Pagination
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.L5_id">
+            <summary> 
+            L5_id
+            </summary> 
+        </member>
+        <member name="P:PosMaster.Data.FilterCriteria.ut_id">
+            <summary> 
+            ut_id
+            </summary> 
+        </member>
+        <member name="T:PosMaster.Functions.Base.BaseFunctions">
+            <summary>
+            Base class for functions
+            </summary>
+        </member>
+        <member name="F:PosMaster.Functions.Base.BaseFunctions._config">
+            <summary>
+            Configuration object
+            </summary>
+        </member>
+        <member name="P:PosMaster.Functions.Base.BaseFunctions._logger">
+            <summary>
+            Telemetry client
+            </summary>
+        </member>
+        <member name="M:PosMaster.Functions.Base.BaseFunctions.#ctor(PosMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            constructor
+            </summary>
+        </member>
+        <member name="M:PosMaster.Functions.Base.BaseFunctions.IsValidDateformat(System.String)">
+            <summary>
+            Check if date is in correct format or not
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.Functions.Base.BaseFunctions.IsValidJson(System.String)">
+            <summary>
+            Check if json is in Valid format or not
+            </summary>
+            <param name="jsonstr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.Functions.Base.BaseFunctions.InputValidation(System.String)">
+            <summary>
+            Validate inputs are correct or not
+            </summary>
+            <param name="requestBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.Functions.Base.BaseFunctions.DynamicMapping(System.Collections.Generic.List{System.Object})">
+            <summary>
+            Map to dynamic object ignoring null and empty arrays
+            </summary>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.Functions.Base.BaseFunctions.GetTokeFromHeader(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Reads Token from InputHeader 
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.DigitalAvailableStoreItemFunction">
+            <summary>
+            DigitalAvailableStoreItemFunction class
+            </summary>
+        </member>
+        <member name="M:PosMaster.DigitalAvailableStoreItemFunction.#ctor(PosMaster.Data.IDigitalAvailableStoreItemAdapter,Microsoft.Extensions.Configuration.IConfiguration,PosMaster.Data.ILoggerAdapter)">
+            <summary>
+            DigitalAvailableStoreItemFunction Constructor
+            </summary>
+            <param name="digitalStore"></param>
+            <param name="config"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PosMaster.DigitalAvailableStoreItemFunction.DigitalAvailableStoreItem(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Azure.WebJobs.ExecutionContext)">
+            <summary>
+            This Function fetches Pos details
+            </summary>
+            <param name="req"></param>
+            <param name="ctx"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.DigitalCouponFunction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PosMaster.DigitalCouponFunction.#ctor(PosMaster.Data.IDigitalCouponAdapter,PosMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            DigitalCouponFunction contructor
+            </summary>
+            <param name="digitalCouponAdapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:PosMaster.DigitalCouponFunction.DigitalCoupon(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Azure.WebJobs.ExecutionContext)">
+            <summary>
+            This Function fetches DigitalCoupon
+            </summary>
+            <param name="req"></param>
+            <param name="ctx"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.DigitalCouponItemFunction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PosMaster.DigitalCouponItemFunction.#ctor(PosMaster.Data.IDigitalCouponItemAdapter,Microsoft.Extensions.Configuration.IConfiguration,PosMaster.Data.ILoggerAdapter)">
+            <summary>
+            PosFunction contructor
+            </summary>
+            <param name="digitalcoupon"></param>
+            <param name="config"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PosMaster.DigitalCouponItemFunction.DigitalCouponItem(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Azure.WebJobs.ExecutionContext)">
+            <summary>
+            This Function fetches Pos details
+            </summary>
+            <param name="req"></param>
+            <param name="ctx"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.HealthCheck">
+            <summary>
+            HealthCheck class
+            </summary>
+        </member>
+        <member name="M:PosMaster.HealthCheck.#ctor(Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckService,PosMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            HealthCheck Function contructor
+            </summary>
+            <param name="healthCheck"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:PosMaster.HealthCheck.Health(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Azure.WebJobs.ExecutionContext)">
+            <summary>
+            This Function fetches health diagnostics details
+            </summary>
+            <param name="req"></param>
+            <param name="ctx"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.ItemFunction">
+            <summary>
+            Sku Function class
+            </summary>
+        </member>
+        <member name="M:PosMaster.ItemFunction.#ctor(PosMaster.Data.IItemAdapter,PosMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            GetItemFunction contructor
+            </summary>
+            <param name="itemAdapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:PosMaster.ItemFunction.Sku(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Azure.WebJobs.ExecutionContext)">
+            <summary>
+            This Function fetches Sku details
+            </summary>
+            <param name="req"></param>
+            <param name="ctx"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.OSAAlertsFunction">
+            <summary>
+            PSA alerts Function class
+            </summary>
+        </member>
+        <member name="M:PosMaster.OSAAlertsFunction.#ctor(PosMaster.Data.IOSAAlertsAdapter,PosMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            OSAAlerts Function Contructor
+            </summary>
+            <param name="OSAAlertsadapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:PosMaster.OSAAlertsFunction.OSAAlerts(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Azure.WebJobs.ExecutionContext)">
+            <summary>
+            This Function fetches PSA Alert details
+            </summary>
+            <param name="req"></param>
+            <param name="ctx"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.PosFunction">
+            <summary>
+            PosFunction class
+            </summary>
+        </member>
+        <member name="M:PosMaster.PosFunction.#ctor(PosMaster.Data.IPosAdapter,PosMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            PosFunction contructor
+            </summary>
+            <param name="posAdapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:PosMaster.PosFunction.Pos(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Azure.WebJobs.ExecutionContext)">
+            <summary>
+            This Function fetches Pos details
+            </summary>
+            <param name="req"></param>
+            <param name="ctx"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.PosGroupFunction">
+            <summary>
+            PosGroupFunction class
+            </summary>
+        </member>
+        <member name="M:PosMaster.PosGroupFunction.#ctor(PosMaster.Data.IPosGroupAdapter,PosMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            PosGroupFunction contructor
+            </summary>
+            <param name="posGroupAdapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:PosMaster.PosGroupFunction.PosGroup(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Azure.WebJobs.ExecutionContext)">
+            <summary>
+            Fetches PosGroup details
+            </summary>
+            <param name="req"></param>
+            <param name="ctx"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.PosPackagingFunction">
+            <summary>
+            PosPackagingFunction class
+            </summary>
+        </member>
+        <member name="M:PosMaster.PosPackagingFunction.#ctor(PosMaster.Data.IPosPackagingAdapter,PosMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            PosFunction contructor
+            </summary>
+            <param name="posAdapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:PosMaster.PosPackagingFunction.PosPackaging(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Azure.WebJobs.ExecutionContext)">
+            <summary>
+            This Function fetches PosPackaging details
+            </summary>
+            <param name="req"></param>
+            <param name="ctx"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.PosTaxonomyFunction">
+            <summary>
+            PosTaxonomyFunction class
+            </summary>
+        </member>
+        <member name="M:PosMaster.PosTaxonomyFunction.#ctor(PosMaster.Data.IPosTaxonomyAdapter,PosMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            UpcDetails Function contructor
+            </summary>
+            <param name="postaxonomyadapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:PosMaster.PosTaxonomyFunction.PosTaxonomy(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Azure.WebJobs.ExecutionContext)">
+            <summary>
+            Fetches PosTaxonomy data
+            </summary>
+            <param name="req"></param>
+            <param name="ctx"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.StoreItemFunction">
+            <summary>
+            SotreItem Function class
+            </summary>
+        </member>
+        <member name="M:PosMaster.StoreItemFunction.#ctor(PosMaster.Data.IStoreItemAdapter,PosMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="storeItem"></param>
+            <param name="config"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PosMaster.StoreItemFunction.StoreItem(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Azure.WebJobs.ExecutionContext)">
+            <summary>
+            This Function fetches StoreItem details
+            </summary>
+            <param name="req"></param>
+            <param name="ctx"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.EncodingForBase64">
+            <summary>
+            Helps in decrypting and encrypting data
+            </summary>
+        </member>
+        <member name="M:PosMaster.EncodingForBase64.EncodeBase64(System.String)">
+            <summary>
+            Encrypt the input token
+            </summary>
+            <param name="Token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.EncodingForBase64.DecodeBase64(System.String)">
+            <summary>
+            Decrypt the input token
+            </summary>
+            <param name="Token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Helper.SerializeContractResolver">
+            <summary>
+            Helps to ignore empty collection while serializing
+            </summary>
+        </member>
+        <member name="F:PosMaster.Helper.SerializeContractResolver.Instance">
+            <summary>
+            SerializeContractResolver Instance
+            </summary>
+        </member>
+        <member name="M:PosMaster.Helper.SerializeContractResolver.CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">
+            <summary>
+            Ignores empty array
+            </summary>
+            <param name="member"></param>
+            <param name="memberSerialization"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PosMaster.Startup">
+            <summary>
+            StartUp class
+            </summary>
+        </member>
+        <member name="F:PosMaster.Startup.API_NAME">
+            <summary>The Name of the API</summary>
+        </member>
+        <member name="F:PosMaster.Startup.API_VERSION">
+            <summary>The version of the API</summary>
+        </member>
+        <member name="F:PosMaster.Startup.API_DESCRIPTION">
+            <summary>The description of the API</summary>
+        </member>
+        <member name="M:PosMaster.Startup.Configure(Microsoft.Azure.Functions.Extensions.DependencyInjection.IFunctionsHostBuilder)">
+            <summary>
+            Configure setting
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:PosMaster.SwaggerController">
+            <summary>
+            Swagger class
+            </summary>
+        </member>
+        <member name="M:PosMaster.SwaggerController.Run(System.Net.Http.HttpRequestMessage,AzureFunctions.Extensions.Swashbuckle.ISwashBuckleClient)">
+            <summary>
+            Swagger json endpoint
+            </summary>
+            <param name="req"></param>
+            <param name="swashBuckleClient"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PosMaster.SwaggerController.Run2(System.Net.Http.HttpRequestMessage,AzureFunctions.Extensions.Swashbuckle.ISwashBuckleClient)">
+            <summary>
+            Swagger UI route
+            </summary>
+            <param name="req"></param>
+            <param name="swashBuckleClient"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

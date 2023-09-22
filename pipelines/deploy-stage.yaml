@@ -1,0 +1,63 @@
+parameters:
+    stageName: ''
+    stageDisplayName: ''
+    condition: ''
+    dependsOn: ''
+    poolname: ''
+    envName: ''
+    envGroup: ''
+    variableFilePath: ''
+
+stages:
+- stage: ${{parameters.stageName}}
+  displayName: ${{parameters.stageDisplayName}}
+  dependsOn: ${{parameters.dependsOn}}
+  condition: ${{parameters.condition}}
+
+  jobs:
+
+  - deployment: Deploy
+    displayName: ${{parameters.envName}}_Deployment
+    pool:
+      name: ${{parameters.poolname}}
+    variables: 
+      - template: ${{parameters.variableFilePath}}
+    environment: '${{parameters.envGroup}}'
+  #checkout: self    #Can be Enabled to add repository as an artifact
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - checkout: self
+          
+          - task: CheckRemedyStatusDeploying@3
+            inputs:
+              CRQ: '$(CRQ)'
+            condition: eq('${{parameters.envName}}', 'PROD')
+            
+          - task: AzureKeyVault@1
+            displayName: 'Azure Key Vault:${{parameters.envName}}'
+            inputs:
+              azureSubscription: '${{variables.azureSubscription}}'
+              KeyVaultName: '${{variables.KeyVaultName}}'
+              RunAsPreJob: true
+
+          - task: AzureFunctionApp@1
+            displayName: Azure Function App Deploy-'${{variables.Location01}}'
+            inputs:
+              azureSubscription: '${{variables.azureSubscription}}'
+              appType: functionApp
+              appName: '${{variables.appName01}}'
+              package: $(Agent.BuildDirectory)/**/*.zip
+              appSettings: '-FUNCTIONS_WORKER_RUNTIME dotnet -FUNCTIONS_EXTENSION_VERSION ~4 -CosmosURL ${{variables.CosmosURL}} -CosmosWriteKey ${{variables.CosmosWriteKey}} -CosmosReadKey ${{variables.CosmosReadKey}} -CosmosRegion "${{variables.Location01}}" -Pagination 100 -DT_TENANT $(DT-TENANT) -DT_CLUSTER_ID $(DT-CLUSTER-ID) -DT_CONNECTION_BASE_URL $(DT-CONNECTION-BASE-URL) -DT_CONNECTION_AUTH_TOKEN $(DT-CONNECTION-AUTH-TOKEN)'
+
+          - task: AzureFunctionApp@1
+            displayName: Azure Function App Deploy-'${{variables.Location02}}'
+            inputs:
+              azureSubscription: '${{variables.azureSubscription}}'
+              appType: functionApp
+              appName: '${{variables.appName02}}'
+              package: $(Agent.BuildDirectory)/**/*.zip
+              appSettings: '-FUNCTIONS_WORKER_RUNTIME dotnet -FUNCTIONS_EXTENSION_VERSION ~4 -CosmosURL ${{variables.CosmosURL}} -CosmosWriteKey ${{variables.CosmosWriteKey}} -CosmosReadKey ${{variables.CosmosReadKey}} -CosmosRegion "${{variables.Location02}}" -Pagination 100 -DT_TENANT $(DT-TENANT) -DT_CLUSTER_ID $(DT-CLUSTER-ID) -DT_CONNECTION_BASE_URL $(DT-CONNECTION-BASE-URL) -DT_CONNECTION_AUTH_TOKEN $(DT-CONNECTION-AUTH-TOKEN)'

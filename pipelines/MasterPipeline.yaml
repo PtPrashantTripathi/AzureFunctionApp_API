@@ -1,0 +1,175 @@
+####################################################################################################################################
+# Ref: Build and TEST .Net core projects 
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/dotnet-core?view=azure-devops
+
+# Unable to use Path filter as it does not fit our expectations. 
+# Please Disable/Pause the Pipeline and make the changes and once the YAML changes are moved to Development 'Enable' the PIpeline
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/repos/azure-repos-git?view=azure-devops&tabs=yaml#behavior-of-triggers-when-new-branches-are-created
+####################################################################################################################################
+
+
+trigger:
+  branches:
+    include:
+    - Development
+    - Release/Release*
+    - master
+  paths:
+    exclude: 
+    - 'pipelines/*'
+
+resources:
+  repositories:
+    - repository: templates
+      name: Apex/Apex_DevOps
+      type: git
+      ref: 'main'    
+
+###########################################################################################
+#                                       BUILD                                             #
+# Build will be will run only for changes in 'Development', 'Release/','Master','hotfix-' #
+# branches and PR to Development                                                          #
+###########################################################################################
+stages:
+- template: \templates\stages\qualitygate.yml@templates
+  parameters:
+    sourceLanguage: cs
+- stage: Build
+  displayName: 'Build'
+  dependsOn: []
+  jobs:
+  - job: BuildJob
+    displayName: Build
+    variables:
+      buildConfiguration: 'Release'
+      DotNetVersion: '6.0.x'
+    pool:
+      name: Build Common Lab 
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: $(DotNetVersion)
+
+    - task: NuGetCommand@2
+      displayName: "NuGet restore"
+      inputs:
+        vstsFeed: "7817c148-c06f-489f-bbcc-055599f4c1a3"
+        includeNuGetOrg: false
+
+    - task: DotNetCoreCLI@2
+      displayName: DotNetBuild
+      inputs:
+        command: 'build'
+        projects: |
+          **/*.csproj
+          !**/*Test*.csproj
+        arguments: '--output publish_output --configuration $(buildConfiguration)'
+        
+
+    - task: DotNetCoreCLI@2
+      condition:  and(succeeded(),ne(variables['Build.Reason'], 'PullRequest'))
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: |
+          **/*.csproj
+          !**/*Test*.csproj
+        arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory) --runtime win-x64'
+
+    - task: PublishBuildArtifacts@1
+      condition:  and(succeeded(),ne(variables['Build.Reason'], 'PullRequest'))
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+###########################################################################################
+#                                     DEV DEPLOYMENT STAGE                                #
+###########################################################################################
+- template: deploy-stage.yaml
+  parameters: 
+    stageName: Deploy_to_INT
+    stageDisplayName: 'Release-INT'
+    dependsOn: 
+    - Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'],'refs/heads/development'),ne(variables['Build.Reason'], 'PullRequest'))
+    # Deployment will run only for updates in 'Development brnach'
+    poolname: Release Common Lab
+    envName: 'INT'
+    envGroup: 'Apex-Pos-Integration'
+    variableFilePath: 'variables/int-variables.yaml'
+
+- template: \templates\stages\functionalTests.yml@templates
+  parameters: 
+    Depends: Deploy_to_INT
+    poolname: Release Common Lab 
+    envName: 'INT'
+    testMethods:
+    - Pos_Track/Sku/TESTSUITES/Item_TestSuite.robot
+    - Pos_Track/PosPackaging/TESTSUITES/PosPackaging_TestSuite.robot
+    - Pos_Track/DigitalCoupon/TESTSUITES/DigitalCoupon_TestSuite.robot
+    - Pos_Track/Pos/TESTSUITES/Pos_TestSuite.robot
+    # - Pos_Track/StoreItem/TESTSUITES/StoreItem_TestSuite.robot #TODO Disabled Temporarly 08/29/2023  - QA Team has User Story to Fix data for this test cases #1267254
+    - Pos_Track/PosGroup/TESTSUITES/PosGroup_TestSuite.robot
+    # - Pos_Track/OSAAlerts/TESTSUITES/OSAAlerts_TestSuite.robot #TODO Disabled Temporarly 08/29/2023  - QA Team has User Story to Fix data for this test cases #1267254
+
+###########################################################################################
+#                                     CERT DEPLOYMENT STAGE                               #
+###########################################################################################
+- template: deploy-stage.yaml
+  parameters: 
+    stageName: Deploy_to_CERT
+    stageDisplayName: 'Release-CERT'
+    dependsOn: 
+    - Build
+    condition: and(succeeded(),or(contains(variables['build.sourceBranch'], 'refs/heads/master'),startsWith(variables['build.sourceBranch'], 'refs/heads/Release/')),ne(variables['Build.Reason'], 'PullRequest'))
+    # Deployment will run only for updates in 'Master' and 'Release/release*'' brnach
+    poolname: Release Common Lab
+    envName: 'CERT'
+    envGroup: 'Apex-Pos-Certification'
+    variableFilePath: 'variables/cert-variables.yaml'
+
+- template: \templates\stages\functionalTests.yml@templates 
+  parameters: 
+    Depends: Deploy_to_CERT
+    poolname: Release Common Lab
+    envName: 'CERT'
+    testMethods:
+    - Pos_Track/Sku/TESTSUITES/Item_TestSuite.robot
+    - Pos_Track/PosPackaging/TESTSUITES/PosPackaging_TestSuite.robot
+    - Pos_Track/DigitalCoupon/TESTSUITES/DigitalCoupon_TestSuite.robot
+    - Pos_Track/Pos/TESTSUITES/Pos_TestSuite.robot
+    # - Pos_Track/StoreItem/TESTSUITES/StoreItem_TestSuite.robot #TODO Disabled Temporarly 08/29/2023 - QA Team has User Story to Fix data for this test cases #1267254
+    - Pos_Track/PosGroup/TESTSUITES/PosGroup_TestSuite.robot
+    # - Pos_Track/OSAAlerts/TESTSUITES/OSAAlerts_TestSuite.robot #TODO Disabled Temporarly 08/29/2023 - QA Team has User Story to Fix data for this test cases #1267254
+
+###########################################################################################
+#                                   PROD DEPLOYMENT STAGE                                 #
+###########################################################################################
+- template: deploy-stage.yaml
+  parameters: 
+    stageName: Deploy_to_PROD
+    stageDisplayName: 'Release-PROD'
+    dependsOn: 
+    - Build
+    - CERT_QAAutomationTestRun
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'],'refs/heads/master'),ne(variables['Build.Reason'], 'PullRequest'))
+    # Deployment will run only for updates in 'MASTER' branch
+    poolname: Release Common Prod
+    envName: 'PROD'
+    envGroup: 'Apex-Pos-Production'
+    variableFilePath: 'variables/prod-variables.yaml'
+
+#- template: \templates\stages\functionalTests.yml@templates
+#  parameters: 
+#    Depends: Deploy_to_PROD
+#    poolname: Release Common Prod
+#    envName: 'PROD'
+#    testMethods:
+#    - Pos_Track/Sku/TESTSUITES/Item_TestSuite.robot
+#    - Pos_Track/PosPackaging/TESTSUITES/PosPackaging_TestSuite.robot
+#    - Pos_Track/DigitalCoupon/TESTSUITES/DigitalCoupon_TestSuite.robot
+#    - Pos_Track/Pos/TESTSUITES/Pos_TestSuite.robot
+#    - Pos_Track/StoreItem/TESTSUITES/StoreItem_TestSuite.robot
+#    - Pos_Track/PosGroup/TESTSUITES/PosGroup_TestSuite.robot
+#    - Pos_Track/OSAAlerts/TESTSUITES/OSAAlerts_TestSuite.robot
