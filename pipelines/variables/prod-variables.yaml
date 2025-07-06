@@ -7,15 +7,14 @@
 variables:
 
     azureSubscription: 'Azure DevOps - Enterprise Data Production'
-    KeyVaultName: 'kv-ea2-apex-apis'
+    KeyVaultName: 'kv-ea2-edaa-apis'
 
     Location01: 'East US 2'
     Location02: 'Central US'
 
-    appName01: 'fa-ea2-apex-apis-pos'
-    appName02: 'fa-cn-apex-apis-pos'
-#AppSetting Variables   
+    appName01: 'fa-ea2-edaa-apis-product'
+    appName02: 'fa-cn-edaa-apis-product'
+#AppSetting Variables
     CosmosURL: $(CosmosDB-URL)
     CosmosWriteKey: $(CosmosDB-PrimaryWriteKey)
     CosmosReadKey: $(CosmosDB-PrimaryReadKey)
-

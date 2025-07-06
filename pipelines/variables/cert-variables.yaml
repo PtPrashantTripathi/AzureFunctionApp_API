@@ -7,15 +7,14 @@
 variables:
 
     azureSubscription: 'Azure DevOps - Enterprise Data NonProduction'
-    KeyVaultName: 'kv-np-ea2-apex-apis-cert'
+    KeyVaultName: 'kv-np-ea2-edaa-apis-cert'
 
     Location01: 'East US 2'
     Location02: 'Central US'
 
-    appName01: 'fa-np-ea2-apex-apis-pos-cert'
-    appName02: 'fa-np-cn-apex-apis-pos-cert'
-#AppSetting Variables   
+    appName01: 'fa-np-ea2-edaa-apis-product-cert'
+    appName02: 'fa-np-cn-edaa-apis-product-cert'
+#AppSetting Variables
     CosmosURL: $(CosmosDB-URL-cert)
     CosmosWriteKey: $(CosmosDB-PrimaryWriteKey-cert)
     CosmosReadKey: $(CosmosDB-PrimaryReadKey-cert)
-

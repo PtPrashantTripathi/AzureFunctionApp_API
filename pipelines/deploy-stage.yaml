@@ -20,7 +20,7 @@ stages:
     displayName: ${{parameters.envName}}_Deployment
     pool:
       name: ${{parameters.poolname}}
-    variables: 
+    variables:
       - template: ${{parameters.variableFilePath}}
     environment: '${{parameters.envGroup}}'
   #checkout: self    #Can be Enabled to add repository as an artifact
@@ -31,12 +31,12 @@ stages:
           - download: current
             artifact: drop
           - checkout: self
-          
+
           - task: CheckRemedyStatusDeploying@3
             inputs:
               CRQ: '$(CRQ)'
             condition: eq('${{parameters.envName}}', 'PROD')
-            
+
           - task: AzureKeyVault@1
             displayName: 'Azure Key Vault:${{parameters.envName}}'
             inputs:

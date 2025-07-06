@@ -1,8 +1,8 @@
 ####################################################################################################################################
-# Ref: Build and TEST .Net core projects 
+# Ref: Build and TEST .Net core projects
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/dotnet-core?view=azure-devops
 
-# Unable to use Path filter as it does not fit our expectations. 
+# Unable to use Path filter as it does not fit our expectations.
 # Please Disable/Pause the Pipeline and make the changes and once the YAML changes are moved to Development 'Enable' the PIpeline
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/repos/azure-repos-git?view=azure-devops&tabs=yaml#behavior-of-triggers-when-new-branches-are-created
 ####################################################################################################################################
@@ -15,15 +15,15 @@ trigger:
     - Release/Release*
     - master
   paths:
-    exclude: 
+    exclude:
     - 'pipelines/*'
 
 resources:
   repositories:
     - repository: templates
-      name: Apex/Apex_DevOps
+      name: Meijer/EDaA_DevOps
       type: git
-      ref: 'main'    
+      ref: 'main'
 
 ###########################################################################################
 #                                       BUILD                                             #
@@ -44,7 +44,7 @@ stages:
       buildConfiguration: 'Release'
       DotNetVersion: '6.0.x'
     pool:
-      name: Build Common Lab 
+      name: Build Common Lab
     steps:
     - task: UseDotNet@2
       inputs:
@@ -65,7 +65,7 @@ stages:
           **/*.csproj
           !**/*Test*.csproj
         arguments: '--output publish_output --configuration $(buildConfiguration)'
-        
+
 
     - task: DotNetCoreCLI@2
       condition:  and(succeeded(),ne(variables['Build.Reason'], 'PullRequest'))
@@ -87,89 +87,80 @@ stages:
 #                                     DEV DEPLOYMENT STAGE                                #
 ###########################################################################################
 - template: deploy-stage.yaml
-  parameters: 
+  parameters:
     stageName: Deploy_to_INT
     stageDisplayName: 'Release-INT'
-    dependsOn: 
+    dependsOn:
     - Build
     condition: and(succeeded(), eq(variables['Build.SourceBranch'],'refs/heads/development'),ne(variables['Build.Reason'], 'PullRequest'))
     # Deployment will run only for updates in 'Development brnach'
     poolname: Release Common Lab
     envName: 'INT'
-    envGroup: 'Apex-Pos-Integration'
+    envGroup: 'EDaA-Product-Integration'
     variableFilePath: 'variables/int-variables.yaml'
 
 - template: \templates\stages\functionalTests.yml@templates
-  parameters: 
+  parameters:
     Depends: Deploy_to_INT
-    poolname: Release Common Lab 
+    poolname: Release Common Lab
     envName: 'INT'
     testMethods:
-    - Pos_Track/Sku/TESTSUITES/Item_TestSuite.robot
-    - Pos_Track/PosPackaging/TESTSUITES/PosPackaging_TestSuite.robot
-    - Pos_Track/DigitalCoupon/TESTSUITES/DigitalCoupon_TestSuite.robot
-    - Pos_Track/Pos/TESTSUITES/Pos_TestSuite.robot
-    # - Pos_Track/StoreItem/TESTSUITES/StoreItem_TestSuite.robot #TODO Disabled Temporarly 08/29/2023  - QA Team has User Story to Fix data for this test cases #1267254
-    - Pos_Track/PosGroup/TESTSUITES/PosGroup_TestSuite.robot
-    # - Pos_Track/OSAAlerts/TESTSUITES/OSAAlerts_TestSuite.robot #TODO Disabled Temporarly 08/29/2023  - QA Team has User Story to Fix data for this test cases #1267254
+    - Product_Track/Item/TESTSUITES/Item_TestSuite.robot
+    - Product_Track/ProductPackaging/TESTSUITES/ProductPackaging_TestSuite.robot
+    - Product_Track/DigitalCoupon/TESTSUITES/DigitalCoupon_TestSuite.robot
+    - Product_Track/Product/TESTSUITES/Product_TestSuite.robot
 
 ###########################################################################################
 #                                     CERT DEPLOYMENT STAGE                               #
 ###########################################################################################
 - template: deploy-stage.yaml
-  parameters: 
+  parameters:
     stageName: Deploy_to_CERT
     stageDisplayName: 'Release-CERT'
-    dependsOn: 
+    dependsOn:
     - Build
     condition: and(succeeded(),or(contains(variables['build.sourceBranch'], 'refs/heads/master'),startsWith(variables['build.sourceBranch'], 'refs/heads/Release/')),ne(variables['Build.Reason'], 'PullRequest'))
     # Deployment will run only for updates in 'Master' and 'Release/release*'' brnach
     poolname: Release Common Lab
     envName: 'CERT'
-    envGroup: 'Apex-Pos-Certification'
+    envGroup: 'EDaA-Product-Certification'
     variableFilePath: 'variables/cert-variables.yaml'
 
-- template: \templates\stages\functionalTests.yml@templates 
-  parameters: 
+- template: \templates\stages\functionalTests.yml@templates
+  parameters:
     Depends: Deploy_to_CERT
     poolname: Release Common Lab
     envName: 'CERT'
     testMethods:
-    - Pos_Track/Sku/TESTSUITES/Item_TestSuite.robot
-    - Pos_Track/PosPackaging/TESTSUITES/PosPackaging_TestSuite.robot
-    - Pos_Track/DigitalCoupon/TESTSUITES/DigitalCoupon_TestSuite.robot
-    - Pos_Track/Pos/TESTSUITES/Pos_TestSuite.robot
-    # - Pos_Track/StoreItem/TESTSUITES/StoreItem_TestSuite.robot #TODO Disabled Temporarly 08/29/2023 - QA Team has User Story to Fix data for this test cases #1267254
-    - Pos_Track/PosGroup/TESTSUITES/PosGroup_TestSuite.robot
-    # - Pos_Track/OSAAlerts/TESTSUITES/OSAAlerts_TestSuite.robot #TODO Disabled Temporarly 08/29/2023 - QA Team has User Story to Fix data for this test cases #1267254
+#    - Product_Track/Item/TESTSUITES/Item_TestSuite.robot
+    - Product_Track/ProductPackaging/TESTSUITES/ProductPackaging_TestSuite.robot
+    - Product_Track/DigitalCoupon/TESTSUITES/DigitalCoupon_TestSuite.robot
+#    - Product_Track/Product/TESTSUITES/Product_TestSuite.robot
 
 ###########################################################################################
 #                                   PROD DEPLOYMENT STAGE                                 #
 ###########################################################################################
 - template: deploy-stage.yaml
-  parameters: 
+  parameters:
     stageName: Deploy_to_PROD
     stageDisplayName: 'Release-PROD'
-    dependsOn: 
+    dependsOn:
     - Build
     - CERT_QAAutomationTestRun
     condition: and(succeeded(), eq(variables['Build.SourceBranch'],'refs/heads/master'),ne(variables['Build.Reason'], 'PullRequest'))
     # Deployment will run only for updates in 'MASTER' branch
     poolname: Release Common Prod
     envName: 'PROD'
-    envGroup: 'Apex-Pos-Production'
+    envGroup: 'EDaA-Product-Production'
     variableFilePath: 'variables/prod-variables.yaml'
 
 #- template: \templates\stages\functionalTests.yml@templates
-#  parameters: 
+#  parameters:
 #    Depends: Deploy_to_PROD
 #    poolname: Release Common Prod
 #    envName: 'PROD'
 #    testMethods:
-#    - Pos_Track/Sku/TESTSUITES/Item_TestSuite.robot
-#    - Pos_Track/PosPackaging/TESTSUITES/PosPackaging_TestSuite.robot
-#    - Pos_Track/DigitalCoupon/TESTSUITES/DigitalCoupon_TestSuite.robot
-#    - Pos_Track/Pos/TESTSUITES/Pos_TestSuite.robot
-#    - Pos_Track/StoreItem/TESTSUITES/StoreItem_TestSuite.robot
-#    - Pos_Track/PosGroup/TESTSUITES/PosGroup_TestSuite.robot
-#    - Pos_Track/OSAAlerts/TESTSUITES/OSAAlerts_TestSuite.robot
+#    - Product_Track/Item/TESTSUITES/Item_TestSuite.robot
+#    - Product_Track/ProductPackaging/TESTSUITES/ProductPackaging_TestSuite.robot
+#    - Product_Track/DigitalCoupon/TESTSUITES/DigitalCoupon_TestSuite.robot
+#    - Product_Track/Product/TESTSUITES/Product_TestSuite.robot

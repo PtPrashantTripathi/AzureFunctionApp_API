@@ -1,0 +1,1090 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProductMaster</name>
+    </assembly>
+    <members>
+        <member name="T:ProductMaster.Data.Adapter.CosmosDbService`1">
+            <summary>
+            CosmosDbService class
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:ProductMaster.Data.Adapter.CosmosDbService`1.#ctor(Microsoft.Azure.Cosmos.CosmosClient,Microsoft.AspNetCore.Http.IHttpContextAccessor,ProductMaster.Data.ILoggerAdapter)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="client"></param>
+            <param name="contextAccessor"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ProductMaster.Data.Adapter.CosmosDbService`1.GetDataWithoutPartitionKey(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Connect and fetches data from cosmos with partition key
+            </summary>
+            /// <param name="Collection"></param>
+            <param name="Query"></param>
+            <param name="Token"></param>
+            <param name="Pagination"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.Adapter.LoggerAdapter">
+            <summary>
+            Telemetry logging for all activities
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.Adapter.LoggerAdapter._appInsights">
+            <summary>
+            Telemetry client
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.Adapter.LoggerAdapter.#ctor(Microsoft.ApplicationInsights.TelemetryClient)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="telemetryClient"></param>
+        </member>
+        <member name="M:ProductMaster.Data.Adapter.LoggerAdapter.LogError(System.Exception,System.String)">
+            <summary>
+            Logs error
+            </summary>
+            <param name="exception"></param>
+            <param name="body"></param>
+        </member>
+        <member name="M:ProductMaster.Data.Adapter.LoggerAdapter.LogError(System.Exception)">
+            <summary>
+            Log error without body
+            </summary>
+            <param name="exception"></param>
+        </member>
+        <member name="M:ProductMaster.Data.Adapter.LoggerAdapter.LogError(System.Exception,System.String,System.String)">
+            <summary>
+            Log error with exception body and apiUrl
+            </summary>
+            <param name="exception"></param>
+            <param name="body"></param>
+            <param name="apiUrl"></param>
+        </member>
+        <member name="M:ProductMaster.Data.Adapter.LoggerAdapter.LogInformation(System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="informationMessage"></param>
+        </member>
+        <member name="M:ProductMaster.Data.Adapter.LoggerAdapter.LogInformation(System.String,System.String)">
+            <summary>
+            Log Information with body
+            </summary>
+            <param name="informationMessage"></param>
+            <param name="body"></param>
+        </member>
+        <member name="M:ProductMaster.Data.Adapter.LoggerAdapter.LogEvent(System.String,System.String)">
+            <summary>
+            Log event with a body / parameters
+            </summary>
+            <param name="informationMessage"></param>
+            <param name="body"></param>
+        </member>
+        <member name="M:ProductMaster.Data.Adapter.LoggerAdapter.LogEvent(System.String)">
+            <summary>
+            Log event without body
+            </summary>
+            <param name="informationMessage"></param>
+        </member>
+        <member name="T:ProductMaster.Data.DigitalAvailableStoreItemAdapter">
+            <summary>
+
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.DigitalAvailableStoreItemAdapter.#ctor(ProductMaster.Data.ILoggerAdapter,ProductMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            constructor
+            </summary>
+            <param name="logger"></param>
+            <param name="cosmosDbService"></param>
+        </member>
+        <member name="M:ProductMaster.Data.DigitalAvailableStoreItemAdapter.GetDigitalAvailableStoreItem(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Product details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.Data.DigitalAvailableStoreItemAdapter.CreateQuery(ProductMaster.Data.FilterCriteria)">
+            <summary>
+            Creates query for cosmos
+            </summary>
+            <param name="filterCriteria"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.DigitalCouponAdapter">
+            <summary>
+            DigitalCouponAdapter class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.DigitalCouponAdapter.#ctor(ProductMaster.Data.ILoggerAdapter,ProductMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ProductMaster.Data.DigitalCouponAdapter.GetCouponDetails(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches DigitalCoupon details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.Data.DigitalCouponItemAdapter.#ctor(ProductMaster.Data.ILoggerAdapter,ProductMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            DigitalCouponItem constructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ProductMaster.Data.DigitalCouponItemAdapter.GetDigitalCouponItem(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Purchase and Offer item details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.HealthCheckAdapter">
+            <summary>
+            HealthCheckAdapter class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.HealthCheckAdapter.#ctor(ProductMaster.Data.ILoggerAdapter,Microsoft.Azure.Cosmos.CosmosClient)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="logger"></param>
+            <param name="cosmosClient"></param>
+        </member>
+        <member name="M:ProductMaster.Data.HealthCheckAdapter.CheckHealthAsync(Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckContext,System.Threading.CancellationToken)">
+            <summary>
+            This Function fetches Cosmos connectivity health diagnostics details
+            </summary>
+            <returns>HealthCheckResult</returns>
+        </member>
+        <member name="T:ProductMaster.Data.ItemAdapter">
+            <summary>
+            ItemDetailsAdapter class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.ItemAdapter.#ctor(ProductMaster.Data.ILoggerAdapter,ProductMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ProductMaster.Data.ItemAdapter.GetDetails(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Product details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.OSAAlertsAdapter">
+            <summary>
+            OSAAlertsAdapter class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.OSAAlertsAdapter.#ctor(ProductMaster.Data.ILoggerAdapter,ProductMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            OSAAlertsAdapter Constructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ProductMaster.Data.OSAAlertsAdapter.GetDetails(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches OSAAlerts details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.Data.OSAAlertsAdapter.CreateQuery(ProductMaster.Data.FilterCriteria,System.Collections.Generic.List{System.Object})">
+            <summary>
+            Creates query for cosmos
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="maxtimestamp"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.ProductAdapter">
+            <summary>
+            ProductAdapter class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.ProductAdapter.#ctor(ProductMaster.Data.ILoggerAdapter,ProductMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            ProductAdapter constructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ProductMaster.Data.ProductAdapter.GetProduct(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Product details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.Data.ProductAdapter.CreateQuery(ProductMaster.Data.FilterCriteria,System.Collections.Generic.List{System.Object})">
+            <summary>
+            Creates query for cosmos
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="ItemResult"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.ProductGroupAdapter">
+            <summary>
+            Fetches ProductGroup details
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.ProductGroupAdapter.#ctor(ProductMaster.Data.ILoggerAdapter,ProductMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            Construtor
+            </summary>
+            <param name="logger"></param>
+            <param name="cosmosDbService"></param>
+        </member>
+        <member name="M:ProductMaster.Data.ProductGroupAdapter.GetProductGroupId(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches ProductGroupId details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.Data.ProductGroupAdapter.CreateQuery(ProductMaster.Data.FilterCriteria)">
+            <summary>
+            Creates query for cosmos
+            </summary>
+            <param name="filterCriteria"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.ProductPackagingAdapter">
+            <summary>
+            ProductPackagingAdapter class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.ProductPackagingAdapter.#ctor(ProductMaster.Data.ILoggerAdapter,ProductMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            ProductPackagingAdapter constructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ProductMaster.Data.ProductPackagingAdapter.GetProductPackaging(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches ProductPackaging details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.Data.ProductPackagingAdapter.CreateQuery(ProductMaster.Data.FilterCriteria)">
+            <summary>
+            Creates query for cosmos[New Optimized query fixes on duplicate records]
+            </summary>
+            <param name="filterCriteria"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.ProductTaxonomyAdapter">
+            <summary>
+            ProductTaxonomyAdapter class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.ProductTaxonomyAdapter.#ctor(ProductMaster.Data.ILoggerAdapter,ProductMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            ProductTaxonomyAdapter constructor
+            </summary>
+            <param name="logger"></param>
+            <param name="cosmosDbService"></param>
+        </member>
+        <member name="M:ProductMaster.Data.ProductTaxonomyAdapter.GetProductTaxonomy(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Upc ProductTaxamony details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.Data.ProductTaxonomyAdapter.CreateQuery(ProductMaster.Data.FilterCriteria)">
+            <summary>
+            Creates query for cosmos
+            </summary>
+            <param name="filterCriteria"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.StoreItemAdapter">
+            <summary>
+            StoreItem Adapter class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.StoreItemAdapter.#ctor(ProductMaster.Data.ILoggerAdapter,ProductMaster.Data.ICosmosDbService{System.Object})">
+            <summary>
+            Consytructor
+            </summary>
+            <param name="cosmosDbService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ProductMaster.Data.StoreItemAdapter.GetStoreItemDetails(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches storeitem details from CosmosDB
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.Data.StoreItemAdapter.CreateQuery(ProductMaster.Data.FilterCriteria)">
+            <summary>
+            Creating dynamic query
+            </summary>
+            <param name="filterCriteria"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.Constant">
+            <summary>
+            Holds all the information that are constant
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Data.Constant.COSMOS_DB">
+            <summary>
+            Cosmos Database name
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Data.Constant.COSMOS_PRODUCT_COLLECTION">
+            <summary>
+            Product collection
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Data.Constant.COSMOS_ITEM_COLLECTION">
+            <summary>
+            Item collection
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Data.Constant.COSMOS_PRODUCTGROUP_COLLECTION">
+            <summary>
+            ProductGroup collection
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Data.Constant.COSMOS_RELATEDPRODUCTGROUP_COLLECTION">
+            <summary>
+            RelatedProductGroup collection
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Data.Constant.COSMOS_DIGITALCOUPON_COLLECTION">
+            <summary>
+            Digital coupon collection
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Data.Constant.COSMOS_PRODUCTTAXONOMY_COLLECTION">
+            <summary>
+            Product Taxonomy collection
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Data.Constant.COSMOS_STOREITEM_COLLECTION">
+            <summary>
+            StorItem collection
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Data.Constant.COSMOS_PRODUCTPACKAGING_COLLECTION">
+            <summary>
+            Product Packaging collection
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Data.Constant.COSMOS_OSAALERTS_COLLECTION">
+            <summary>
+            OSAALERTS collection
+            </summary>
+        </member>
+        <member name="T:ProductMaster.Data.ICosmosDbService`1">
+            <summary>
+            CosmosDbService Interface
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:ProductMaster.Data.ICosmosDbService`1.GetDataWithoutPartitionKey(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Connect and fetches data from cosmos with partition key
+            </summary>
+            <param name="Collection"></param>
+            <param name="Query"></param>
+            <param name="Token"></param>
+            <param name="Pagination"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.IDigitalAvailableStoreItemAdapter">
+            <summary>
+            DigitalAvailableStoreItemAdapter Interface
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.IDigitalAvailableStoreItemAdapter.GetDigitalAvailableStoreItem(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches DigitalAvailableStoreItem Details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.IDigitalCouponAdapter">
+            <summary>
+            Interface for all operation related to DigitalCoupon details
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.IDigitalCouponAdapter.GetCouponDetails(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches DigitalCoupon details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.IDigitalCouponItemAdapter">
+            <summary>
+            DigitalCouponItemAdapter interface
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.IDigitalCouponItemAdapter.GetDigitalCouponItem(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            GetDigitalCouponItem Interface
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.IItemAdapter">
+            <summary>
+            Interface for all operation related to Item details
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.IItemAdapter.GetDetails(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Item details
+            </summary>
+            <param name="filterCriteria"></param>
+            /// <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.ILoggerAdapter">
+            <summary>
+            Logger adapter interface
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.ILoggerAdapter.LogInformation(System.String)">
+            <summary>
+            Log information
+            </summary>
+            <param name="informationMessage"></param>
+        </member>
+        <member name="M:ProductMaster.Data.ILoggerAdapter.LogInformation(System.String,System.String)">
+            <summary>
+            Log Information with body
+            </summary>
+            <param name="informationMessage"></param>
+            <param name="body"></param>
+        </member>
+        <member name="M:ProductMaster.Data.ILoggerAdapter.LogEvent(System.String)">
+            <summary>
+            Log event without body
+            </summary>
+            <param name="informationMessage"></param>
+        </member>
+        <member name="M:ProductMaster.Data.ILoggerAdapter.LogEvent(System.String,System.String)">
+            <summary>
+            Log event with a body / parameters
+            </summary>
+            <param name="informationMessage"></param>
+            <param name="body"></param>
+        </member>
+        <member name="M:ProductMaster.Data.ILoggerAdapter.LogError(System.Exception)">
+            <summary>
+            Log error without body
+            </summary>
+            <param name="exception"></param>
+        </member>
+        <member name="M:ProductMaster.Data.ILoggerAdapter.LogError(System.Exception,System.String)">
+            <summary>
+            Log Error with a body / parameters
+            </summary>
+            <param name="exception"></param>
+            <param name="body"></param>
+        </member>
+        <member name="M:ProductMaster.Data.ILoggerAdapter.LogError(System.Exception,System.String,System.String)">
+            <summary>
+            Log error with exception body and apiUrl
+            </summary>
+            <param name="exception"></param>
+            <param name="body"></param>
+            <param name="apiUrl"></param>
+        </member>
+        <member name="T:ProductMaster.Data.IOSAAlertsAdapter">
+            <summary>
+            Interface for all operation related to OSA alerts details
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.IOSAAlertsAdapter.GetDetails(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches OSAAlerts Details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.IProductAdapter">
+            <summary>
+            ProductAdapter Interface
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.IProductAdapter.GetProduct(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches Product Details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.IProductGroupAdapter">
+            <summary>
+            ProductGroupAdapter interface
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.IProductGroupAdapter.GetProductGroupId(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+             Fetches ProductGroup details and GetPrimaryKeyandProductHierarchy
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.IProductPackagingAdapter">
+            <summary>
+            ProductPackaging Interface
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.IProductPackagingAdapter.GetProductPackaging(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches ProductPackaging Details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.IProductTaxonomyAdapter">
+            <summary>
+            IProductTaxonomy Interface
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.IProductTaxonomyAdapter.GetProductTaxonomy(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+            Fetches ProductTaxonomy Details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.IStoreItemAdapter">
+            <summary>
+            StoreItemAdapter Interface
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Data.IStoreItemAdapter.GetStoreItemDetails(ProductMaster.Data.FilterCriteria,System.String)">
+            <summary>
+             Fetches StoreItem Details
+            </summary>
+            <param name="filterCriteria"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Data.FilterCriteria">
+            <summary>
+            FilterCriteria class
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.RowUpdatedStartDate">
+            <summary>
+            RowUpdatedStartDate
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.RowUpdatedEndDate">
+            <summary>
+            RowUpdatedEndDate
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.BrandCategoryId">
+            <summary>
+            BrandCategoryId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.ProductStatusTypeName">
+            <summary>
+            ProductStatusTypeName
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.mProductTaxonomyID">
+            <summary>
+            mProductTaxonomyID
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.VendorId">
+            <summary>
+            VendorId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.LegacyPrimaryKeyId">
+            <summary>
+            LegacyPrimaryKeyId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.ProductId">
+            <summary>
+            ProductId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.ItemSku">
+            <summary>
+            ItemSku
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.mProductId">
+            <summary>
+            mProductId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.UPCTypeName">
+            <summary>
+            UPCTypeName
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.StoreId">
+            <summary>
+            StoreId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.CouponSourceId">
+            <summary>
+            CouponSourceId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.mCouponId">
+            <summary>
+            mCouponId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.mRelatedProductGroupId">
+            <summary>
+            mRelatedProductGroupId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.mProductGroupId">
+            <summary>
+            mProductGroupId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.Purpose">
+            <summary>
+            Purpose
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.CasePackId">
+            <summary>
+            CasePackId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.InnerPackId">
+            <summary>
+            InnerPackId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.mVendorID">
+            <summary>
+            mVendorID
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.ItemCodeId">
+            <summary>
+            ItemCodeId
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.Pagination">
+            <summary>
+            Pagination
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.L5_id">
+            <summary>
+            L5_id
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Data.FilterCriteria.ut_id">
+            <summary>
+            ut_id
+            </summary>
+        </member>
+        <member name="T:ProductMaster.Functions.Base.BaseFunctions">
+            <summary>
+            Base class for functions
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Functions.Base.BaseFunctions._config">
+            <summary>
+            Configuration object
+            </summary>
+        </member>
+        <member name="P:ProductMaster.Functions.Base.BaseFunctions._logger">
+            <summary>
+            Telemetry client
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Functions.Base.BaseFunctions.#ctor(ProductMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            constructor
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Functions.Base.BaseFunctions.IsValidDateformat(System.String)">
+            <summary>
+            Check if date is in correct format or not
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.Functions.Base.BaseFunctions.IsValidJson(System.String)">
+            <summary>
+            Check if json is in Valid format or not
+            </summary>
+            <param name="jsonstr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.Functions.Base.BaseFunctions.InputValidation(System.String)">
+            <summary>
+            Validate inputs are correct or not
+            </summary>
+            <param name="requestBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.Functions.Base.BaseFunctions.DynamicMapping(System.Collections.Generic.List{System.Object})">
+            <summary>
+            Map to dynamic object ignoring null and empty arrays
+            </summary>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.Functions.Base.BaseFunctions.GetTokeFromHeader(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Reads Token from InputHeader
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.DigitalAvailableStoreItemFunction">
+            <summary>
+            DigitalAvailableStoreItemFunction class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.DigitalAvailableStoreItemFunction.#ctor(ProductMaster.Data.IDigitalAvailableStoreItemAdapter,Microsoft.Extensions.Configuration.IConfiguration,ProductMaster.Data.ILoggerAdapter)">
+            <summary>
+            DigitalAvailableStoreItemFunction Constructor
+            </summary>
+            <param name="digitalStore"></param>
+            <param name="config"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ProductMaster.DigitalAvailableStoreItemFunction.DigitalAvailableStoreItem(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            This Function fetches Product details
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.DigitalCouponFunction">
+            <summary>
+
+            </summary>
+        </member>
+        <member name="M:ProductMaster.DigitalCouponFunction.#ctor(ProductMaster.Data.IDigitalCouponAdapter,ProductMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            DigitalCouponFunction contructor
+            </summary>
+            <param name="digitalCouponAdapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:ProductMaster.DigitalCouponFunction.DigitalCoupon(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            This Function fetches DigitalCoupon
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.DigitalCouponItemFunction">
+            <summary>
+
+            </summary>
+        </member>
+        <member name="M:ProductMaster.DigitalCouponItemFunction.#ctor(ProductMaster.Data.IDigitalCouponItemAdapter,Microsoft.Extensions.Configuration.IConfiguration,ProductMaster.Data.ILoggerAdapter)">
+            <summary>
+            ProductFunction contructor
+            </summary>
+            <param name="digitalcoupon"></param>
+            <param name="config"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ProductMaster.DigitalCouponItemFunction.DigitalCouponItem(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            This Function fetches Product details
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.HealthCheck">
+            <summary>
+            HealthCheck class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.HealthCheck.#ctor(Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckService,ProductMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            HealthCheck Function contructor
+            </summary>
+            <param name="healthCheck"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:ProductMaster.HealthCheck.Health(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            This Function fetches health diagnostics details
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.ItemFunction">
+            <summary>
+            Item Function class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.ItemFunction.#ctor(ProductMaster.Data.IItemAdapter,ProductMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            GetItemFunction contructor
+            </summary>
+            <param name="itemAdapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:ProductMaster.ItemFunction.Item(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            This Function fetches Item details
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.OSAAlertsFunction">
+            <summary>
+            OSA alerts Function class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.OSAAlertsFunction.#ctor(ProductMaster.Data.IOSAAlertsAdapter,ProductMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            OSAAlerts Function Contructor
+            </summary>
+            <param name="OSAAlertsadapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:ProductMaster.OSAAlertsFunction.OSAAlerts(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            This Function fetches OSA Alert details
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.ProductFunction">
+            <summary>
+            ProductFunction class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.ProductFunction.#ctor(ProductMaster.Data.IProductAdapter,ProductMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            ProductFunction contructor
+            </summary>
+            <param name="productAdapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:ProductMaster.ProductFunction.Product(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            This Function fetches Product details
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.ProductGroupFunction">
+            <summary>
+            ProductGroupFunction class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.ProductGroupFunction.#ctor(ProductMaster.Data.IProductGroupAdapter,ProductMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            ProductGroupFunction contructor
+            </summary>
+            <param name="productGroupAdapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:ProductMaster.ProductGroupFunction.ProductGroup(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Fetches ProductGroup details
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.ProductPackagingFunction">
+            <summary>
+            ProductPackagingFunction class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.ProductPackagingFunction.#ctor(ProductMaster.Data.IProductPackagingAdapter,ProductMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            ProductFunction contructor
+            </summary>
+            <param name="productAdapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:ProductMaster.ProductPackagingFunction.ProductPackaging(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            This Function fetches ProductPackaging details
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.ProductTaxonomyFunction">
+            <summary>
+            ProductTaxonomyFunction class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.ProductTaxonomyFunction.#ctor(ProductMaster.Data.IProductTaxonomyAdapter,ProductMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            UpcDetails Function contructor
+            </summary>
+            <param name="producttaxonomyadapter"></param>
+            <param name="logger"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:ProductMaster.ProductTaxonomyFunction.ProductTaxonomy(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Fetches ProductTaxonomy data
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.StoreItemFunction">
+            <summary>
+            SotreItem Function class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.StoreItemFunction.#ctor(ProductMaster.Data.IStoreItemAdapter,ProductMaster.Data.ILoggerAdapter,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="storeItem"></param>
+            <param name="config"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ProductMaster.StoreItemFunction.StoreItem(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            This Function fetches StoreItem details
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.EncodingForBase64">
+            <summary>
+            Helps in decrypting and encrypting data
+            </summary>
+        </member>
+        <member name="M:ProductMaster.EncodingForBase64.EncodeBase64(System.String)">
+            <summary>
+            Encrypt the input token
+            </summary>
+            <param name="Token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.EncodingForBase64.DecodeBase64(System.String)">
+            <summary>
+            Decrypt the input token
+            </summary>
+            <param name="Token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Helper.SerializeContractResolver">
+            <summary>
+            Helps to ignore empty collection while serializing
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Helper.SerializeContractResolver.Instance">
+            <summary>
+            SerializeContractResolver Instance
+            </summary>
+        </member>
+        <member name="M:ProductMaster.Helper.SerializeContractResolver.CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">
+            <summary>
+            Ignores empty array
+            </summary>
+            <param name="member"></param>
+            <param name="memberSerialization"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ProductMaster.Startup">
+            <summary>
+            StartUp class
+            </summary>
+        </member>
+        <member name="F:ProductMaster.Startup.API_NAME">
+            <summary>The Name of the API</summary>
+        </member>
+        <member name="F:ProductMaster.Startup.API_VERSION">
+            <summary>The version of the API</summary>
+        </member>
+        <member name="F:ProductMaster.Startup.API_DESCRIPTION">
+            <summary>The description of the API</summary>
+        </member>
+        <member name="M:ProductMaster.Startup.Configure(Microsoft.Azure.Functions.Extensions.DependencyInjection.IFunctionsHostBuilder)">
+            <summary>
+            Configure setting
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:ProductMaster.SwaggerController">
+            <summary>
+            Swagger class
+            </summary>
+        </member>
+        <member name="M:ProductMaster.SwaggerController.Run(System.Net.Http.HttpRequestMessage,AzureFunctions.Extensions.Swashbuckle.ISwashBuckleClient)">
+            <summary>
+            Swagger json endpoint
+            </summary>
+            <param name="req"></param>
+            <param name="swashBuckleClient"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ProductMaster.SwaggerController.Run2(System.Net.Http.HttpRequestMessage,AzureFunctions.Extensions.Swashbuckle.ISwashBuckleClient)">
+            <summary>
+            Swagger UI route
+            </summary>
+            <param name="req"></param>
+            <param name="swashBuckleClient"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
